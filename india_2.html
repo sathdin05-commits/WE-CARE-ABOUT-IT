@@ -1,0 +1,866 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Explore India | CultureConnect</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'DM Sans', sans-serif;
+    background: #f7f4ed;
+    color: #23372d;
+}
+
+/* NAVBAR */
+
+.navbar {
+    background: white;
+    padding: 20px 7%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.04);
+}
+
+.logo {
+    font-size: 26px;
+    font-weight: 700;
+    color: #203b2e;
+    text-decoration: none;
+}
+
+.logo span {
+    color: #f26a21;
+}
+
+.nav-links {
+    display: flex;
+    gap: 30px;
+    align-items: center;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: #59665e;
+    font-weight: 500;
+}
+
+.nav-links a:hover {
+    color: #f26a21;
+}
+
+/* HERO */
+
+.hero {
+    padding: 75px 7% 55px;
+    text-align: center;
+    background: #eee8dc;
+}
+
+.hero .small-title {
+    color: #f26a21;
+    letter-spacing: 4px;
+    font-size: 13px;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(35px, 5vw, 60px);
+    margin-bottom: 20px;
+}
+
+.hero p {
+    max-width: 750px;
+    margin: auto;
+    color: #68746b;
+    line-height: 1.8;
+}
+
+/* SEARCH */
+
+.search-section {
+    padding: 35px 7%;
+    text-align: center;
+}
+
+.search-box {
+    width: 100%;
+    max-width: 600px;
+    padding: 16px 20px;
+    border: 1px solid #dedbd3;
+    border-radius: 50px;
+    outline: none;
+    font-size: 16px;
+    background: white;
+}
+
+.search-box:focus {
+    border-color: #f26a21;
+}
+
+/* FILTERS */
+
+.filters {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    padding: 0 7% 30px;
+}
+
+.filter-btn {
+    padding: 10px 22px;
+    border-radius: 30px;
+    border: 1px solid #ddd6ca;
+    background: white;
+    cursor: pointer;
+    font-weight: 600;
+    color: #45574b;
+    transition: 0.3s;
+}
+
+.filter-btn:hover,
+.filter-btn.active {
+    background: #244b38;
+    color: white;
+    border-color: #244b38;
+}
+
+/* CARDS */
+
+.states-container {
+    padding: 10px 7% 80px;
+}
+
+.states-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+}
+
+.state-card {
+    background: white;
+    border-radius: 18px;
+    overflow: hidden;
+    transition: 0.3s;
+    border: 1px solid #ece8df;
+}
+
+.state-card:hover {
+    transform: translateY(-7px);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.08);
+}
+
+.card-top {
+    height: 170px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    background: linear-gradient(135deg, #e7d7bb, #f4e9d5);
+}
+
+.card-emoji {
+    font-size: 75px;
+}
+
+.card-type {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    background: white;
+    color: #f26a21;
+    padding: 7px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.card-content {
+    padding: 22px;
+}
+
+.card-content h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 25px;
+    margin-bottom: 10px;
+}
+
+.card-content p {
+    color: #657168;
+    font-size: 14px;
+    line-height: 1.8;
+}
+
+.card-info {
+    margin-top: 18px;
+    border-top: 1px solid #eee;
+    padding-top: 15px;
+}
+
+.card-info div {
+    margin-bottom: 10px;
+    font-size: 14px;
+}
+
+.card-info strong {
+    color: #244b38;
+}
+
+.read-more {
+    display: inline-block;
+    margin-top: 15px;
+    color: #f26a21;
+    font-weight: bold;
+    cursor: pointer;
+    border: none;
+    background: transparent;
+    font-size: 15px;
+}
+
+.no-results {
+    text-align: center;
+    padding: 60px;
+    font-size: 20px;
+    color: #777;
+    display: none;
+}
+
+/* FOOTER */
+
+footer {
+    background: #203b2e;
+    color: white;
+    padding: 35px 7%;
+    text-align: center;
+}
+
+footer p {
+    color: #d0d9d2;
+    margin-top: 10px;
+}
+
+/* RESPONSIVE */
+
+@media(max-width: 900px) {
+    .states-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media(max-width: 600px) {
+    .states-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .nav-links {
+        gap: 12px;
+        font-size: 13px;
+    }
+
+    .navbar {
+        padding: 15px 5%;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+
+<nav class="navbar">
+
+    <a href="index.html" class="logo">
+        ☀ Culture<span>Connect</span>
+    </a>
+
+    <div class="nav-links">
+       <a href="file:///C:/CSE-A/culturethatwecareaboutit.html#about" class="active">Home</a>
+            <a href="file:///C:/CSE-A/culturethatwecareaboutit.html#explore">Explore</a>
+            <a href="file:///C:/CSE-A/culturethatwecareaboutit.html#discover">Discover</a>
+            <a href="file:///C:/CSE-A/culturethatwecareaboutit.html#events">Events</a>
+            <a href="file:///C:/CSE-A/culturethatwecareaboutit.html#about">About</a>
+    </div>
+
+</nav>
+
+<!-- HERO -->
+
+<section class="hero">
+
+    <div class="small-title">A JOURNEY THROUGH INDIA</div>
+
+    <h1>Discover Every Corner of India</h1>
+
+    <p>
+        Explore the history, traditions, festivals, art and food
+        of all 28 states and 8 Union Territories of India.
+        Every region has a unique story waiting to be discovered.
+    </p>
+
+</section>
+
+<!-- SEARCH -->
+
+<section class="search-section">
+
+    <input
+        type="text"
+        id="searchInput"
+        class="search-box"
+        placeholder="🔍 Search for a state or Union Territory..."
+    >
+
+</section>
+
+<!-- FILTER BUTTONS -->
+
+<div class="filters">
+
+    <button class="filter-btn active" data-filter="all">
+        All Regions
+    </button>
+
+    <button class="filter-btn" data-filter="state">
+        States
+    </button>
+
+    <button class="filter-btn" data-filter="ut">
+        Union Territories
+    </button>
+
+</div>
+
+<!-- STATES GRID -->
+
+<section class="states-container">
+
+    <div class="states-grid" id="statesGrid"></div>
+
+    <div class="no-results" id="noResults">
+        No regions found. Try another search.
+    </div>
+
+</section>
+
+<footer>
+
+    <h2>CultureConnect</h2>
+
+    <p>
+        Connecting the younger generation with India's
+        beautiful heritage and traditions.
+    </p>
+
+    <p>© 2026 CultureConnect | Discover India's Culture</p>
+
+</footer>
+
+<script>
+
+/* INDIA CULTURE DATA */
+
+const regions = [
+
+{
+name:"Andhra Pradesh",
+type:"state",
+emoji:"🌾",
+history:"Andhra Pradesh has a rich history shaped by the Satavahana, Eastern Chalukya and Vijayanagara empires. Its ancient Buddhist centres and historic temples reflect centuries of cultural development.",
+festival:"Ugadi, Sankranti",
+food:"Pulihora, Pesarattu",
+culture:"Kuchipudi dance and Kalamkari art"
+},
+
+{
+name:"Arunachal Pradesh",
+type:"state",
+emoji:"🏔️",
+history:"Arunachal Pradesh is home to many indigenous communities with distinct languages and traditions. Its history includes tribal kingdoms, Buddhist monasteries and strong cultural connections with the Himalayan region.",
+festival:"Losar, Nyokum",
+food:"Thukpa, Momos",
+culture:"Tribal dances and Buddhist traditions"
+},
+
+{
+name:"Assam",
+type:"state",
+emoji:"🍵",
+history:"Assam's history includes the powerful Ahom kingdom, which ruled the region for nearly six centuries. The Brahmaputra Valley became an important centre of trade, culture and Assamese literature.",
+festival:"Bihu",
+food:"Assamese Thali, Pitha",
+culture:"Bihu dance, silk weaving"
+},
+
+{
+name:"Bihar",
+type:"state",
+emoji:"🛕",
+history:"Bihar was the centre of ancient Magadha and important empires such as the Maurya and Gupta dynasties. It is also associated with the birth of Buddhism and Jainism and the ancient universities of Nalanda and Vikramashila.",
+festival:"Chhath Puja",
+food:"Litti Chokha",
+culture:"Madhubani painting"
+},
+
+{
+name:"Chhattisgarh",
+type:"state",
+emoji:"🌳",
+history:"Chhattisgarh has a long history of tribal communities, ancient temples and regional kingdoms. Its forests and cultural traditions have shaped its identity through folk music, dance and crafts.",
+festival:"Bastar Dussehra",
+food:"Chila, Fara",
+culture:"Panthi and Raut Nacha dances"
+},
+
+{
+name:"Goa",
+type:"state",
+emoji:"🏖️",
+history:"Goa has been influenced by ancient Indian kingdoms and Portuguese rule, which lasted from the 16th century until 1961. Its architecture, cuisine and festivals reflect a blend of Indian and Portuguese cultures.",
+festival:"Carnival, Shigmo",
+food:"Goan Fish Curry",
+culture:"Fado music and folk dances"
+},
+
+{
+name:"Gujarat",
+type:"state",
+emoji:"🪔",
+history:"Gujarat contains some of the world's important ancient Indus Valley sites, including Lothal. It later developed through regional kingdoms, trade networks and the cultural movements associated with Mahatma Gandhi.",
+festival:"Navratri",
+food:"Dhokla, Thepla",
+culture:"Garba and Bandhani"
+},
+
+{
+name:"Haryana",
+type:"state",
+emoji:"🐂",
+history:"Haryana is associated with ancient Vedic traditions and the Mahabharata, including the region around Kurukshetra. It has historically been an important agricultural and military region of northern India.",
+festival:"Teej, Surajkund Mela",
+food:"Bajra Roti, Churma",
+culture:"Saang folk theatre"
+},
+
+{
+name:"Himachal Pradesh",
+type:"state",
+emoji:"🏔️",
+history:"Himachal Pradesh was historically formed by numerous hill kingdoms. Its temples, monasteries and mountain traditions reflect Hindu, Buddhist and regional influences.",
+festival:"Kullu Dussehra",
+food:"Dham",
+culture:"Nati dance and traditional handicrafts"
+},
+
+{
+name:"Jharkhand",
+type:"state",
+emoji:"🌲",
+history:"Jharkhand has a long history of indigenous communities and forest-based cultures. The region became a separate state in 2000 after a movement focused on tribal identity and regional development.",
+festival:"Sarhul, Karma",
+food:"Dhuska",
+culture:"Tribal music, dances and crafts"
+},
+
+{
+name:"Karnataka",
+type:"state",
+emoji:"🏛️",
+history:"Karnataka has been shaped by dynasties including the Kadambas, Chalukyas, Rashtrakutas, Hoysalas and Vijayanagara Empire. Its historic architecture and literature form an important part of South Indian heritage.",
+festival:"Mysuru Dasara",
+food:"Bisi Bele Bath",
+culture:"Yakshagana and Mysore painting"
+},
+
+{
+name:"Kerala",
+type:"state",
+emoji:"🌴",
+history:"Kerala developed through ancient maritime trade connecting India with the Middle East and other regions. Its history includes Chera rulers, spice trade, diverse religious communities and distinctive social traditions.",
+festival:"Onam, Vishu",
+food:"Sadya, Appam",
+culture:"Kathakali and Mohiniyattam"
+},
+
+{
+name:"Madhya Pradesh",
+type:"state",
+emoji:"🐅",
+history:"Madhya Pradesh contains ancient cave paintings, Buddhist sites and historic cities. It was influenced by dynasties including the Mauryas, Guptas, Paramaras and the Gond kingdoms.",
+festival:"Khajuraho Dance Festival",
+food:"Poha, Dal Bafla",
+culture:"Gond art"
+},
+
+{
+name:"Maharashtra",
+type:"state",
+emoji:"🥁",
+history:"Maharashtra's history includes the Satavahana dynasty, medieval Deccan kingdoms and the Maratha Empire founded by Shivaji Maharaj. Its forts and cultural traditions remain central to its identity.",
+festival:"Ganesh Chaturthi",
+food:"Puran Poli, Vada Pav",
+culture:"Lavani and Warli art"
+},
+
+{
+name:"Manipur",
+type:"state",
+emoji:"💃",
+history:"Manipur has a history of ancient monarchies and strong indigenous traditions. Its culture combines the Meitei heritage, classical Vaishnavism and diverse tribal traditions.",
+festival:"Yaoshang",
+food:"Eromba",
+culture:"Manipuri classical dance"
+},
+
+{
+name:"Meghalaya",
+type:"state",
+emoji:"🌧️",
+history:"Meghalaya is home to Khasi, Garo and Jaintia communities with distinctive social systems and traditions. Many communities preserve matrilineal family customs and rich oral histories.",
+festival:"Wangala, Shad Suk Mynsiem",
+food:"Jadoh",
+culture:"Traditional Khasi and Garo music"
+},
+
+{
+name:"Mizoram",
+type:"state",
+emoji:"🌿",
+history:"Mizoram's history is deeply connected with Mizo tribal communities and village traditions. Christianity, community institutions and cultural movements have influenced its modern identity.",
+festival:"Chapchar Kut",
+food:"Bai",
+culture:"Cheraw bamboo dance"
+},
+
+{
+name:"Nagaland",
+type:"state",
+emoji:"🎭",
+history:"Nagaland has a rich heritage of Naga tribes, village societies and warrior traditions. Each tribe preserves its own customs, clothing, oral history and festivals.",
+festival:"Hornbill Festival",
+food:"Smoked Pork",
+culture:"Naga tribal dances and crafts"
+},
+
+{
+name:"Odisha",
+type:"state",
+emoji:"🛕",
+history:"Odisha was historically known as Kalinga, a powerful ancient kingdom. The Kalinga War influenced Emperor Ashoka's transformation, and the region later developed renowned temples and classical arts.",
+festival:"Rath Yatra",
+food:"Pakhala Bhata",
+culture:"Odissi dance and Pattachitra"
+},
+
+{
+name:"Punjab",
+type:"state",
+emoji:"🌾",
+history:"Punjab has been a major centre of ancient civilisation, agriculture and trade. It is also the birthplace of Sikhism and played a significant role in India's independence movement.",
+festival:"Baisakhi",
+food:"Makki di Roti, Sarson da Saag",
+culture:"Bhangra and Giddha"
+},
+
+{
+name:"Rajasthan",
+type:"state",
+emoji:"🏰",
+history:"Rajasthan was historically home to Rajput kingdoms known for their forts, palaces and traditions of bravery. Its desert trade routes and royal courts influenced its architecture, music and crafts.",
+festival:"Gangaur, Pushkar Fair",
+food:"Dal Baati Churma",
+culture:"Ghoomar and Kathputli"
+},
+
+{
+name:"Sikkim",
+type:"state",
+emoji:"🏔️",
+history:"Sikkim was historically ruled by the Namgyal dynasty and had strong Tibetan Buddhist cultural connections. It became part of India in 1975.",
+festival:"Losar, Pang Lhabsol",
+food:"Momos, Thukpa",
+culture:"Buddhist monasteries and traditional dances"
+},
+
+{
+name:"Tamil Nadu",
+type:"state",
+emoji:"🛕",
+history:"Tamil Nadu has a rich history of ancient Tamil civilisation and dynasties including the Cholas, Cheras and Pandyas. The Chola Empire was known for its administration, maritime influence and magnificent temples.",
+festival:"Pongal",
+food:"Idli, Dosa",
+culture:"Bharatanatyam and Carnatic music"
+},
+
+{
+name:"Telangana",
+type:"state",
+emoji:"💎",
+history:"Telangana was influenced by the Kakatiya dynasty, Qutb Shahi rulers and the Hyderabad state under the Nizams. Its heritage includes historic forts, temples, Urdu and Telugu literature and distinctive regional traditions.",
+festival:"Bathukamma, Bonalu",
+food:"Hyderabadi Biryani",
+culture:"Perini dance and Telangana folk arts"
+},
+
+{
+name:"Tripura",
+type:"state",
+emoji:"🌺",
+history:"Tripura was historically ruled by the Manikya dynasty for centuries. Its royal history, indigenous communities and Bengali cultural influences shaped the region's traditions.",
+festival:"Kharchi Puja, Garia Puja",
+food:"Mui Borok",
+culture:"Hojagiri dance"
+},
+
+{
+name:"Uttar Pradesh",
+type:"state",
+emoji:"🕌",
+history:"Uttar Pradesh contains important ancient cities associated with Hinduism, Buddhism and Jainism. It was a major centre of the Mughal Empire and later played a key role in India's independence movement.",
+festival:"Kumbh Mela, Holi",
+food:"Awadhi Biryani",
+culture:"Kathak and classical music"
+},
+
+{
+name:"Uttarakhand",
+type:"state",
+emoji:"⛰️",
+history:"Uttarakhand's history includes ancient Himalayan kingdoms and pilgrimage traditions. The region is associated with important sacred sites, mountain communities and the historical Kumaon and Garhwal kingdoms.",
+festival:"Nanda Devi Raj Jat",
+food:"Kafuli",
+culture:"Garhwali and Kumaoni folk traditions"
+},
+
+{
+name:"West Bengal",
+type:"state",
+emoji:"🎨",
+history:"West Bengal has a rich history of ancient kingdoms, colonial-era Kolkata and the Bengal Renaissance. It played a major role in India's cultural, literary and independence movements.",
+festival:"Durga Puja",
+food:"Rosogolla, Fish Curry",
+culture:"Rabindra Sangeet and Baul music"
+},
+
+/* UNION TERRITORIES */
+
+{
+name:"Andaman and Nicobar Islands",
+type:"ut",
+emoji:"🏝️",
+history:"The islands have long been home to indigenous communities, including several groups with distinct languages and traditions. They later became known for the British colonial penal settlement at Cellular Jail.",
+festival:"Island cultural festivals",
+food:"Seafood",
+culture:"Indigenous heritage and island traditions"
+},
+
+{
+name:"Chandigarh",
+type:"ut",
+emoji:"🏙️",
+history:"Chandigarh was designed after India's independence as a modern planned city. Architect Le Corbusier played a major role in its urban design, and it serves as the capital of Punjab and Haryana.",
+festival:"Rose Festival",
+food:"Punjabi cuisine",
+culture:"Modern architecture and Punjabi traditions"
+},
+
+{
+name:"Dadra and Nagar Haveli and Daman and Diu",
+type:"ut",
+emoji:"🌊",
+history:"The territories have histories influenced by indigenous communities, Gujarati culture and Portuguese colonial rule. Daman and Diu remained under Portuguese administration until 1961.",
+festival:"Nariyal Purnima",
+food:"Seafood and Gujarati dishes",
+culture:"Coastal and tribal traditions"
+},
+
+{
+name:"Delhi",
+type:"ut",
+emoji:"🏛️",
+history:"Delhi has served as the capital of several powerful kingdoms and empires, including the Delhi Sultanate and Mughal Empire. It became the capital of British India in 1911 and of independent India.",
+festival:"Diwali, Eid",
+food:"Chaat, Mughlai food",
+culture:"A blend of traditions from across India"
+},
+
+{
+name:"Jammu and Kashmir",
+type:"ut",
+emoji:"🏔️",
+history:"Jammu and Kashmir has a long history of Hindu, Buddhist and Islamic cultural influences. The region was shaped by ancient kingdoms, Kashmir's literary traditions and historic trade routes.",
+festival:"Tulip Festival",
+food:"Wazwan",
+culture:"Kashmiri handicrafts and music"
+},
+
+{
+name:"Ladakh",
+type:"ut",
+emoji:"⛰️",
+history:"Ladakh developed as an important Himalayan region connected to Tibetan Buddhist culture and ancient trade routes. Its monasteries and mountain communities preserve distinctive traditions.",
+festival:"Hemis Festival",
+food:"Thukpa, Skyu",
+culture:"Buddhist monastery traditions"
+},
+
+{
+name:"Lakshadweep",
+type:"ut",
+emoji:"🏝️",
+history:"Lakshadweep's history is closely connected with maritime trade and communities across the Arabian Sea. Its culture reflects strong Malayalam and Islamic influences alongside island traditions.",
+festival:"Eid celebrations",
+food:"Tuna dishes",
+culture:"Traditional island music and dance"
+},
+
+{
+name:"Puducherry",
+type:"ut",
+emoji:"🏘️",
+history:"Puducherry was a French colonial settlement until it was transferred to India in 1954. Its historic French Quarter, Tamil culture and coastal heritage reflect a unique blend of traditions.",
+festival:"Pongal, Bastille Day celebrations",
+food:"French-Tamil cuisine",
+culture:"French colonial architecture and Tamil heritage"
+}
+
+];
+
+/* DISPLAY CARDS */
+
+const grid = document.getElementById("statesGrid");
+const searchInput = document.getElementById("searchInput");
+const noResults = document.getElementById("noResults");
+
+let currentFilter = "all";
+
+function displayRegions(data) {
+
+    grid.innerHTML = "";
+
+    if (data.length === 0) {
+        noResults.style.display = "block";
+        return;
+    }
+
+    noResults.style.display = "none";
+
+    data.forEach(region => {
+
+        const card = document.createElement("div");
+        card.className = "state-card";
+
+        card.innerHTML = `
+            <div class="card-top">
+                <span class="card-type">
+                    ${region.type === "state" ? "STATE" : "UNION TERRITORY"}
+                </span>
+
+                <span class="card-emoji">${region.emoji}</span>
+            </div>
+
+            <div class="card-content">
+
+                <h2>${region.name}</h2>
+
+                <p>${region.history}</p>
+
+                <div class="card-info">
+
+                    <div>
+                        <strong>🎉 Festivals:</strong>
+                        ${region.festival}
+                    </div>
+
+                    <div>
+                        <strong>🍛 Food:</strong>
+                        ${region.food}
+                    </div>
+
+                    <div>
+                        <strong>🎭 Culture:</strong>
+                        ${region.culture}
+                    </div>
+
+                </div>
+
+            </div>
+        `;
+
+        grid.appendChild(card);
+
+    });
+
+}
+
+/* SEARCH FUNCTION */
+
+function filterRegions() {
+
+    const searchText = searchInput.value.toLowerCase();
+
+    const filtered = regions.filter(region => {
+
+        const matchesSearch =
+            region.name.toLowerCase().includes(searchText);
+
+        const matchesFilter =
+            currentFilter === "all" ||
+            region.type === currentFilter;
+
+        return matchesSearch && matchesFilter;
+
+    });
+
+    displayRegions(filtered);
+
+}
+
+/* FILTER BUTTONS */
+
+document.querySelectorAll(".filter-btn").forEach(button => {
+
+    button.addEventListener("click", () => {
+
+        document.querySelectorAll(".filter-btn").forEach(btn => {
+            btn.classList.remove("active");
+        });
+
+        button.classList.add("active");
+
+        currentFilter = button.dataset.filter;
+
+        filterRegions();
+
+    });
+
+});
+
+/* SEARCH LISTENER */
+
+searchInput.addEventListener("input", filterRegions);
+
+/* INITIAL DISPLAY */
+
+displayRegions(regions);
+
+</script>
+
+</body>
+</html>
