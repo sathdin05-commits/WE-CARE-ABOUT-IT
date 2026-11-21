@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CultureConnect | Discover India</title>
+    <link rel="stylesheet" href="style2.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+
+<script>
+// ============================
+// STATE DATA
+// ============================
+
+const states = [
+    {
+        name: "Telangana",
+        image: "https://images.unsplash.com/photo-1561361513-2d000a50f0dc?auto=format&fit=crop&w=800&q=80",
+        culture: "Bathukamma, Bonalu, Perini Dance, Cheriyal Paintings",
+        description: "Discover the vibrant traditions, festivals and heritage of Telangana."
+    },
+
+    {
+        name: "Rajasthan",
+        image: "https://images.unsplash.com/photo-1477587458883-47145ed94245?auto=format&fit=crop&w=800&q=80",
+        culture: "Ghoomar, Kalbeliya, Desert Festival, Block Printing",
+        description: "Explore royal heritage, colourful traditions and desert culture."
+    },
+
+    {
+        name: "Kerala",
+        image: "https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?auto=format&fit=crop&w=800&q=80",
+        culture: "Kathakali, Onam, Mohiniyattam, Kalaripayattu",
+        description: "Experience Kerala's traditional arts, festivals and beautiful landscapes."
+    },
+
+    {
+        name: "Assam",
+        image: "https://images.unsplash.com/photo-1518509562904-e7ef99cd1e35?auto=format&fit=crop&w=800&q=80",
+        culture: "Bihu, Sattriya Dance, Muga Silk, Assamese Cuisine",
+        description: "Discover the traditions and artistic heritage of northeastern India."
+    }
+];
+
+
+// ============================
+// DISPLAY STATE CARDS
+// ============================
+
+const stateGrid = document.getElementById("stateGrid");
+
+function displayStates() {
+
+    stateGrid.innerHTML = "";
+
+    states.forEach(state => {
+
+        const card = document.createElement("div");
+
+        card.className = "state-card";
+
+        card.innerHTML = `
+            <img src="${state.image}" alt="${state.name} culture">
+
+            <div class="state-card-content">
+
+                <span>DISCOVER INDIA</span>
+
+                <h3>${state.name}</h3>
+
+                <p>${state.description}</p>
+
+                <a class="state-link">
+                    Explore Culture →
+                </a>
+
+            </div>
+        `;
+
+        card.addEventListener("click", () => {
+            showState(state.name);
+        });
+
+        stateGrid.appendChild(card);
+
+    });
+
+}
+
+displayStates();
+
+
+// ============================
+// SEARCH FUNCTION
+// ============================
+
+function searchCulture() {
+
+    const input = document.getElementById("searchInput");
+
+    const query = input.value.trim().toLowerCase();
+
+    if (query === "") {
+
+        alert("Please enter a state, festival, art or tradition.");
+
+        return;
+
+    }
+
+    const foundState = states.find(state => {
+
+        return (
+            state.name.toLowerCase().includes(query) ||
+            state.culture.toLowerCase().includes(query) ||
+            state.description.toLowerCase().includes(query)
+        );
+
+    });
+
+    if (foundState) {
+
+        showState(foundState.name);
+
+    } else {
+
+        showSearchResult(query);
+
+    }
+
+}
+
+
+// Search using Enter key
+
+document.getElementById("searchInput")
+    .addEventListener("keypress", function(event) {
+
+        if (event.key === "Enter") {
+            searchCulture();
+        }
+
+    });
+
+
+// ============================
+// STATE DETAILS
+// ============================
+
+function showState(stateName) {
+
+    const state = states.find(
+        item => item.name.toLowerCase() === stateName.toLowerCase()
+    );
+
+    if (!state) {
+
+        showSearchResult(stateName);
+
+        return;
+
+    }
+
+    const modal = document.getElementById("cultureModal");
+
+    const modalContent = document.getElementById("modalContent");
+
+    modalContent.innerHTML = `
+        <h2>${state.name}</h2>
+
+        <p>${state.description}</p>
+
+        <h3>✨ Cultural Highlights</h3>
+
+        <p>${state.culture}</p>
+
+        <h3>Explore More</h3>
+
+        <p>
+            Discover traditional dances, festivals, food,
+            art, music, clothing and historical places
+            of ${state.name}.
+        </p>
+
+        <button class="primary-button"
+            onclick="closeModal()">
+            Continue Exploring
+        </button>
+    `;
+
+    modal.classList.add("active");
+
+}
+
+
+// ============================
+// SEARCH RESULTS
+// ============================
+
+function showSearchResult(query) {
+
+    const modal = document.getElementById("cultureModal");
+
+    const modalContent = document.getElementById("modalContent");
+
+    modalContent.innerHTML = `
+        <h2>Explore "${query}"</h2>
+
+        <p>
+            Discover the cultural traditions, festivals,
+            art and heritage associated with
+            <strong>${query}</strong>.
+        </p>
+
+        <h3>What you can discover</h3>
+
+        <p>🎭 Traditional dances</p>
+
+        <p>🎉 Cultural festivals</p>
+
+        <p>🎨 Traditional art and crafts</p>
+
+        <p>🍛 Regional food</p>
+
+        <p>👗 Traditional clothing</p>
+
+        <button class="primary-button"
+            onclick="closeModal()">
+            Continue Exploring
+        </button>
+    `;
+
+    modal.classList.add("active");
+
+}
+
+
+// ============================
+// CATEGORY INTERACTION
+// ============================
+
+function showCategory(category) {
+
+    const modal = document.getElementById("cultureModal");
+
+    const modalContent = document.getElementById("modalContent");
+
+    const categoryData = {
+
+        dance: {
+            title: "Dance & Music",
+            text: "Explore India's classical dance forms, folk dances and traditional music.",
+            examples: "Bharatanatyam, Kuchipudi, Kathak, Bihu, Garba, Ghoomar and Sattriya."
+        },
+
+        festivals: {
+            title: "Festivals of India",
+            text: "Discover the festivals celebrated throughout India and the traditions behind them.",
+            examples: "Diwali, Holi, Pongal, Onam, Bihu, Bathukamma and Durga Puja."
+        },
+
+        art: {
+            title: "Art & Crafts",
+            text: "Explore the artistic heritage of India's talented artisans.",
+            examples: "Warli, Madhubani, Kalamkari, Pattachitra, Cheriyal and traditional handloom."
+        },
+
+        food: {
+            title: "Food & Cuisine",
+            text: "Travel across India through its flavours, ingredients and traditional recipes.",
+            examples: "Hyderabadi Biryani, Dosa, Rajasthani Dal Baati, Assamese cuisine and Kerala Sadya."
+        }
+
+    };
+
+    const data = categoryData[category];
+
+    modalContent.innerHTML = `
+        <h2>${data.title}</h2>
+
+        <p>${data.text}</p>
+
+        <h3>Discover</h3>
+
+        <p>${data.examples}</p>
+
+        <button class="primary-button"
+            onclick="closeModal()">
+            Explore More
+        </button>
+    `;
+
+    modal.classList.add("active");
+
+}
+
+
+// ============================
+// MODAL CLOSE
+// ============================
+
+function closeModal() {
+
+    document.getElementById("cultureModal")
+        .classList.remove("active");
+
+}
+
+
+// Close modal when clicking outside
+
+document.getElementById("cultureModal")
+    .addEventListener("click", function(event) {
+
+        if (event.target === this) {
+            closeModal();
+        }
+
+    });
+
+
+// Close modal using Escape key
+
+document.addEventListener("keydown", function(event) {
+
+    if (event.key === "Escape") {
+        closeModal();
+    }
+
+});
+
+
+// ============================
+// SCROLL FUNCTIONS
+// ============================
+
+function scrollToExplore() {
+
+    document.getElementById("explore")
+        .scrollIntoView({
+            behavior: "smooth"
+        });
+
+}
+
+function scrollToDiscover() {
+
+    document.getElementById("discover")
+        .scrollIntoView({
+            behavior: "smooth"
+        });
+
+}
+
+
+// ============================
+// MOBILE NAVIGATION
+// ============================
+
+const menuToggle = document.getElementById("menuToggle");
+
+const navLinks = document.querySelector(".nav-links");
+
+menuToggle.addEventListener("click", function() {
+
+    navLinks.classList.toggle("show");
+
+});
+
+
+// Close mobile menu after selecting a link
+
+document.querySelectorAll(".nav-links a")
+    .forEach(link => {
+
+        link.addEventListener("click", function() {
+
+            navLinks.classList.remove("show");
+
+        });
+
+    });
+
+
+// ============================
+// NAVIGATION ACTIVE STATE
+// ============================
+
+const sections = document.querySelectorAll("section[id]");
+
+window.addEventListener("scroll", function() {
+
+    let current = "";
+
+    sections.forEach(section => {
+
+        const sectionTop = section.offsetTop - 150;
+
+        if (window.scrollY >= sectionTop) {
+
+            current = section.getAttribute("id");
+
+        }
+
+    });
+
+    document.querySelectorAll(".nav-links a")
+        .forEach(link => {
+
+            link.classList.remove("active");
+
+            if (link.getAttribute("href") === "#" + current) {
+
+                link.classList.add("active");
+
+            }
+
+        });
+
+});
+</script>
+    <!-- NAVBAR -->
+    <nav class="navbar">
+        <a href="#" class="logo">
+            <span class="logo-icon">✺</span>
+            DESI<span>ROOTS</span>
+        </a>
+
+        <div class="nav-links">
+            <a href="file:///C:/CSE-A/culturethatwecareaboutit.html#about" class="active">Home</a>
+            <a href="file:///C:/CSE-A/culturethatwecareaboutit.html#explore">Explore</a>
+            <a href="file:///C:/CSE-A/culturethatwecareaboutit.html#discover">Discover</a>
+            <a href="file:///C:/CSE-A/culturethatwecareaboutit.html#events">Events</a>
+            <a href="file:///C:/CSE-A/culturethatwecareaboutit.html#about">About</a>
+        </div>
+
+        <button class="nav-button" onclick="scrollToExplore()">
+            Explore India ↗
+        </button>
+
+        <button class="menu-toggle" id="menuToggle">☰</button>
+    </nav>
+<section class="india-map-section">
+    <h2>Explore India</h2>
+    <p>Discover the culture of every Indian state.</p>
+
+    <img
+        src="https://images.openai.com/static-rsc-4/nXzILM_Ti2rEwAaamg9ciMb9GARoOjVIoNn2S2fM4JrRFS03eUwJaOa4FPOHsV7fNEuIn77kGoOU8Ni0Sbw_rXjbpu1_sWJLF6yDTAK2RJuSVLTtGUr0IoRZIwX_KT2cO3fBcUSYxO_qjEWrTxsPVEv91n0yGFsH90HNJJqt332Au4tLYVrbBJDoOj4aOG9l?purpose=fullsize"
+        alt="Map of India showing its states and union territories"
+        class="india-map"
+    >
+</section>
+
+
+
+    <!-- HERO SECTION -->
+    <section class="hero" id="home">
+
+        <div class="hero-overlay"></div>
+
+        <div class="hero-content">
+
+            <div class="hero-tag">
+                <span class="pulse"></span>
+                India's culture, one journey at a time
+            </div>
+
+            <h1>
+                Discover the<br>
+                <span>Culture of India</span>
+            </h1>
+
+            <p>
+                Explore the traditions, festivals, art, music, and stories
+                that make every corner of India unique.
+            </p>
+
+            <div class="hero-buttons">
+
+                <button class="primary-button" onclick="scrollToExplore()">
+                    Explore Cultures
+                    <span>→</span>
+                </button>
+
+                <button class="secondary-button" onclick="scrollToDiscover()">
+                    Discover Traditions
+                </button>
+
+            </div>
+
+            <div class="hero-stats">
+                <div>
+                    <h3>28</h3>
+                    <p>States</p>
+                </div>
+
+                <div class="stat-divider"></div>
+
+                <div>
+                    <h3>8</h3>
+                    <p>Union Territories</p>
+                </div>
+
+                <div class="stat-divider"></div>
+
+                <div>
+                    <h3>∞</h3>
+                    <p>Traditions</p>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="hero-bottom">
+            <span>SCROLL TO EXPLORE</span>
+            <span class="scroll-line"></span>
+        </div>
+
+    </section>
+
+
+    <!-- SEARCH SECTION -->
+    <section class="search-section">
+
+        <div class="search-container">
+
+            <div>
+                <h2>Where do you want to explore?</h2>
+                <p>Find traditions, festivals, art and culture from across India.</p>
+            </div>
+
+            <div class="search-box">
+
+                <span class="search-icon">⌕</span>
+
+                <input
+                    type="text"
+                    id="searchInput"
+                    placeholder="Search states, festivals, dance, art..."
+                >
+
+                <button onclick="searchCulture()">Search</button>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- CULTURAL CATEGORIES -->
+    <section class="categories-section" id="discover">
+
+        <div class="section-heading">
+
+            <div>
+                <span class="section-label">DISCOVER INDIA</span>
+                <h2>Explore the richness<br>of Indian culture</h2>
+            </div>
+
+            <p>
+                Every tradition tells a story.
+                Discover the beauty of India's cultural heritage.
+            </p>
+
+        </div>
+
+        <div class="category-grid">
+
+            <div class="category-card" onclick="showCategory('dance')">
+
+                <img src="https://images.unsplash.com/photo-1504609813442-a8924e83f76e?auto=format&fit=crop&w=800&q=80">
+
+                <div class="category-overlay">
+                    <span class="category-number">01</span>
+                    <h3>Dance & Music</h3>
+                    <p>Rhythm, movement and traditions</p>
+                    <span class="category-arrow">↗</span>
+                </div>
+
+            </div>
+
+            <div class="category-card" onclick="showCategory('festivals')">
+
+                <img src="https://images.unsplash.com/photo-1604608672516-1b8a5f3b5c2d?auto=format&fit=crop&w=800&q=80">
+
+                <div class="category-overlay">
+                    <span class="category-number">02</span>
+                    <h3>Festivals</h3>
+                    <p>Celebrations that bring us together</p>
+                    <span class="category-arrow">↗</span>
+                </div>
+
+            </div>
+
+            <div class="category-card" onclick="showCategory('art')">
+
+                <img src="https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?auto=format&fit=crop&w=800&q=80">
+
+                <div class="category-overlay">
+                    <span class="category-number">03</span>
+                    <h3>Art & Crafts</h3>
+                    <p>Handcrafted stories of India</p>
+                    <span class="category-arrow">↗</span>
+                </div>
+
+            </div>
+
+            <div class="category-card" onclick="showCategory('food')">
+
+                <img src="https://images.unsplash.com/photo-1546833999-b9f581a1996d?auto=format&fit=crop&w=800&q=80">
+
+                <div class="category-overlay">
+                    <span class="category-number">04</span>
+                    <h3>Food & Cuisine</h3>
+                    <p>Flavours from every region</p>
+                    <span class="category-arrow">↗</span>
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- EXPLORE STATES -->
+    <section class="explore-section" id="explore">
+
+        <div class="section-heading">
+
+            <div>
+                <span class="section-label">A JOURNEY THROUGH INDIA</span>
+                <h2>Explore by State</h2>
+            </div>
+	    <a href="stateinfo.html" class="view-all-states">
+    View all states →
+</a>
+
+           
+        </div>
+
+        <div class="state-grid" id="stateGrid">
+
+            <!-- States generated using JavaScript -->
+
+        </div>
+
+    </section>
+
+
+    <!-- FEATURED CULTURE -->
+    <section class="featured-section">
+
+        <div class="featured-image">
+
+            <img src="https://images.unsplash.com/photo-1561361513-2d000a50f0dc?auto=format&fit=crop&w=1200&q=90">
+
+        </div>
+
+        <div class="featured-content">
+
+            <span class="section-label">CULTURE OF THE MONTH</span>
+
+            <h2>Experience the<br><span>Colours of Rajasthan</span></h2>
+
+            <p>
+                From magnificent forts and vibrant folk dances to traditional
+                crafts and desert festivals, Rajasthan offers an unforgettable
+                journey through India's royal heritage.
+            </p>
+
+            <div class="featured-tags">
+                <span>🎭 Folk Dance</span>
+                <span>🏰 Heritage</span>
+                <span>🎨 Art</span>
+            </div>
+
+            <button class="primary-button" onclick="showState('Rajasthan')">
+                Explore Rajasthan →
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- EVENTS -->
+    <section class="events-section" id="events">
+
+        <div class="section-heading">
+
+            <div>
+                <span class="section-label">EXPERIENCE CULTURE</span>
+                <h2>Upcoming Cultural Events</h2>
+            </div>
+
+            <a href="events.html" class="view-all">
+                View all events →
+            </a>
+
+        </div>
+
+        <div class="events-grid">
+
+            <div class="event-card">
+
+                <img src="https://images.unsplash.com/photo-1604608672516-1b8a5f3b5c2d?auto=format&fit=crop&w=800&q=80">
+
+                <div class="event-details">
+
+                    <span class="event-date">JANUARY</span>
+
+                    <h3>Pongal Celebration</h3>
+
+                    <p>Celebrate the harvest season with traditional food, music and festivities.</p>
+
+                    <div class="event-location">
+                        📍 Tamil Nadu, India
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="event-card">
+
+                <img src="https://images.unsplash.com/photo-1514222134-b57cbb8ce073?auto=format&fit=crop&w=800&q=80">
+
+                <div class="event-details">
+
+                    <span class="event-date">FEBRUARY</span>
+
+                    <h3>Surajkund Crafts Festival</h3>
+
+                    <p>Discover traditional crafts, artists, music and handmade treasures.</p>
+
+                    <div class="event-location">
+                        📍 Haryana, India
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="event-card">
+
+                <img src="https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?auto=format&fit=crop&w=800&q=80">
+
+                <div class="event-details">
+
+                    <span class="event-date">MARCH</span>
+
+                    <h3>Holi Festival</h3>
+
+                    <p>Celebrate India's colourful festival of joy, unity and new beginnings.</p>
+
+                    <div class="event-location">
+                        📍 Across India
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ABOUT -->
+    <section class="about-section" id="about">
+
+        <div class="about-content">
+
+            <span class="section-label">OUR MISSION</span>
+
+            <h2>Keeping our culture<br>alive for generations.</h2>
+
+            <p>
+                CultureConnect brings India's cultural heritage closer to
+                today's generation through technology, interactive discovery,
+                and community participation.
+            </p>
+
+            <button class="primary-button" onclick="scrollToExplore()">
+                Start Exploring →
+            </button>
+
+        </div>
+
+        <div class="about-visual">
+
+            <div class="about-circle">
+                <span>🇮🇳</span>
+                <h3>Unity in<br>Diversity</h3>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- FOOTER -->
+    <footer class="footer">
+
+        <div class="footer-top">
+
+            <a href="#" class="logo">
+                <span class="logo-icon">✺</span>
+                Culture<span>Connect</span>
+            </a>
+
+            <p>Discover. Experience. Preserve.</p>
+
+        </div>
+
+        <div class="footer-bottom">
+
+            <p>© 2026 CultureConnect. Celebrating India's cultural diversity.</p>
+
+            <div>
+                <a href="#home">Home</a>
+                <a href="#explore">Explore</a>
+                <a href="#events">Events</a>
+            </div>
+
+        </div>
+
+    </footer>
+
+
+    <!-- MODAL -->
+    <div class="modal" id="cultureModal">
+
+        <div class="modal-content">
+
+            <button class="modal-close" onclick="closeModal()">×</button>
+
+            <div id="modalContent"></div>
+
+        </div>
+
+    </div>
+
+
+    <script src="script.js"></script>
+
+</body>
+</html>
